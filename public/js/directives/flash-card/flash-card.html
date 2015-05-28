@@ -18,4 +18,12 @@
         <span ng-show="!answeredCorrectly">Nope, you got it wrong.</span>
     </h2>
 
+    <br />
+    <br />
+
+    <button ng-click="attachToFactory(card)" 
+            ui-sref="manageCard({ id: card._id})" 
+            ng-hide="hideManageButton"
+            >Manage Card</button>
+            <!-- when click, go to manageCard state, passing in stateParams -->
 </div>

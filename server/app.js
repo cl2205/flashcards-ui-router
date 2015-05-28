@@ -31,6 +31,15 @@ app.get('/cards', function (req, res) {
 
 });
 
+app.get('/cards/:id', function (req, res) {
+    var cardId = req.params.id;
+    FlashCardModel.findById(cardId).exec().then(function() {
+        res.send(card);
+    }, function(err) {
+        res.status(500).send(err.message);
+    }); //execute this query with exec(), which always returns a promise
+});
+
 app.post('/cards', function (req, res) {
 
     var card = req.body;
@@ -38,6 +47,25 @@ app.post('/cards', function (req, res) {
     FlashCardModel.create(card).then(function (createdCard) {
         res.send(createdCard);
     }, function (err) {
+        res.status(500).send(err.message);
+    });
+
+});
+
+app.delete('/home/:id', function(req, res) {
+    var cardId = req.params.id;
+    FlashCardModel.findByIdAndRemove(cardId).exec().then(function() {
+        res.end();
+    }, function(err) {
+        res.status(500).send(err.message);
+    });
+});
+
+app.put('/home/:id', function (req, res){
+    var editedCard = req.body;
+    FlashCardModel.findByIdAndUpdate(req.params.id, editedCard).exec().then(function() {
+        res.send(card);
+    }, function(err) {
         res.status(500).send(err.message);
     });
 

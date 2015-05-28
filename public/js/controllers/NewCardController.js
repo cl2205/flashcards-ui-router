@@ -5,19 +5,21 @@ app.controller('NewCardController', function (
 ) {
 
     $scope.submittingCard = false;
+    $scope.pageObjective = 'add'
 
-    $scope.newCard = {
-        question: 'What is ANgluasdlkfj?',
-        category: 'Angular',
+    $scope.card = {
+        question: null,
+        category: null,
         answers: [
-            { text: 'Okay', correct: false },
-            { text: 'Never', correct: true },
-            { text: 'Fill out the form again', correct: false }
+            { text: null, correct: false },
+            { text: null, correct: false },
+            { text: null, correct: false }
         ]
     };
 
-    $scope.submitNewCard = function (card) {
+    $scope.submitCard = function (card) {
         $scope.submittingCard = true;
+        
         FlashCardsFactory.addNewCard(card).then(function (newCard) {
             $rootScope.$broadcast('newCardAdded', newCard);
             $scope.submittingCard = false;

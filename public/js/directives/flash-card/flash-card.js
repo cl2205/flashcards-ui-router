@@ -1,12 +1,17 @@
-app.directive('flashCard', function (ScoreFactory) {
+app.directive('flashCard', function (ScoreFactory, FlashCardsFactory) {
 
     return {
         restrict: 'E',
         templateUrl: 'js/directives/flash-card/flash-card.html',
         scope: {
-            card: '='
+            card: '=',
+            hideManageButton: '='
         },
         link: function (scope) {
+
+            scope.attachToFactory = function(card){
+                FlashCardsFactory.cardToManage = card
+            }
 
             scope.answered = false;
             scope.answeredCorrectly = null;
